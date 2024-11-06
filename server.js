@@ -11,8 +11,11 @@ app.use(express.json());
 app.get('/api/transcript/:videoId', async (req, res) => {
   try {
     const { videoId } = req.params;
-    const transcriptItems = await YoutubeTranscript.fetchTranscript(videoId);
-    
+
+    const languages = ['de', 'en']; // First try German, then English
+    const transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, { lang: 'en' });
+
+
     const transcript = transcriptItems
       .map(item => item.text)
       .join(' ')

@@ -1,3 +1,5 @@
+import { CHUNK_SIZE } from './fileProcessing';
+
 export class FileProcessor {
   private worker: Worker;
   private abortController: AbortController;
@@ -25,7 +27,7 @@ export class FileProcessor {
       // Handle worker messages
       this.worker.onmessage = (e) => {
         const { type, data } = e.data;
-        
+
         switch (type) {
           case 'progress':
             onProgress(data);
@@ -76,25 +78,25 @@ export class FileProcessor {
       offset += CHUNK_SIZE;
     }
 
-    this.worker.postMessage({ 
-      type: 'txt', 
-      chunks 
+    this.worker.postMessage({
+      type: 'txt',
+      chunks
     }, chunks);
   }
 
   private async processPdfFile(file: File): Promise<void> {
     const buffer = await file.arrayBuffer();
-    this.worker.postMessage({ 
-      type: 'pdf', 
-      buffer 
+    this.worker.postMessage({
+      type: 'pdf',
+      buffer
     }, [buffer]);
   }
 
   private async processEpubFile(file: File): Promise<void> {
     const buffer = await file.arrayBuffer();
-    this.worker.postMessage({ 
-      type: 'epub', 
-      buffer 
+    this.worker.postMessage({
+      type: 'epub',
+      buffer
     }, [buffer]);
   }
 

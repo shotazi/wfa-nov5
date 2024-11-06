@@ -1,6 +1,6 @@
 import { FileProcessor } from './FileProcessor';
 
-const CHUNK_SIZE = 1024 * 1024; // 1MB chunks
+export const CHUNK_SIZE = 1024 * 1024; // 1MB chunks
 
 export async function processFile(
   file: File,
@@ -8,7 +8,7 @@ export async function processFile(
   signal: AbortSignal
 ): Promise<string> {
   const processor = new FileProcessor();
-  
+
   try {
     return await processor.processFile(file, onProgress, signal);
   } finally {

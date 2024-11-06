@@ -3,6 +3,8 @@ import axios from 'axios';
 export async function getTranscript(videoId: string): Promise<string> {
   try {
     const response = await axios.get(`/api/transcript/${videoId}`);
+
+
     return response.data.transcript;
   } catch (error) {
     if (axios.isAxiosError(error)) {
